@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tu llamada ha sido agendada · Carmen Victoria Pardo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #28282C;
+    color: #F5F2EE;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :root {
+    --amber:    #E8A030;
+    --amber-lt: #F2BC6A;
+    --amber-dk: #C47A10;
+    --teal:     #3D8A9C;
+    --teal-lt:  #5AAEC0;
+    --cream:    #F5F2EE;
+    --bg:       #28282C;
+    --bg2:      #2E2E34;
+    --sand:     #F0DEC4;
+    --max:      800px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-size: 200px;
+    pointer-events: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes glowPulse {
+    0%,100% { box-shadow: 0 0 30px 6px rgba(232,160,48,.3), 0 0 60px 10px rgba(232,160,48,.1); }
+    50%      { box-shadow: 0 0 50px 14px rgba(232,160,48,.6), 0 0 100px 20px rgba(232,160,48,.2); }
+  }
+  @keyframes playPulse {
+    0%,100% { transform: translate(-50%,-50%) scale(1);    box-shadow: 0 0 0 0 rgba(232,160,48,.5); }
+    50%      { transform: translate(-50%,-50%) scale(1.08); box-shadow: 0 0 0 20px rgba(232,160,48,0); }
+  }
+  @keyframes urgencyPulse {
+    0%,100% { background: #B80D28; }
+    50%      { background: #D4102E; }
+  }
+  @keyframes arrowBounce {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-5px); }
+  }
+
+  .fade { opacity: 0; animation: fadeUp .55s ease forwards; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+  /* ── BRAND BAR ── */
+  .brand-bar {
+    padding: 22px 20px 14px;
+    text-align: center;
+    position: relative; z-index: 1;
+  }
+  .brand-name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--sand);
+  }
+  .program-tag {
+    display: block;
+    margin-top: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  /* ── URGENCY BANNER ── */
+  .urgency-banner {
+    background: #C8102E;
+    animation: urgencyPulse 3s ease-in-out infinite;
+    padding: 18px 24px;
+    text-align: center;
+    position: relative; z-index: 10;
+    border-top: 3px solid #FF1A42;
+    border-bottom: 3px solid #FF1A42;
+    opacity: 1 !important;
+  }
+  .urgency-main {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(13px, 2.8vw, 17px);
+    color: #ffffff !important;
+    line-height: 1.45;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    text-shadow: 0 1px 3px rgba(0,0,0,.3);
+  }
+  .urgency-main span { text-decoration: underline; }
+
+  /* ── IMPORTANT NOTE ── */
+  .important-note {
+    margin: 16px auto 0;
+    padding: 14px 20px;
+    background: rgba(0,0,0,.28);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 7px;
+    max-width: 660px;
+    position: relative; z-index: 1;
+  }
+  .important-note .imp-line {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .important-note .imp-line strong { color: #FFD700; }
+  .important-note .cancel-line {
+    margin-top: 7px;
+    font-size: 13.5px;
+    color: rgba(255,255,255,.78);
+    text-align: center;
+    line-height: 1.5;
+  }
+  .important-note .cancel-line em {
+    font-style: normal;
+    text-decoration: underline;
+    color: #FFD700;
+    font-weight: 600;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+    margin: 40px auto;
+    position: relative; z-index: 1;
+  }
+
+  /* ── PASO LABEL ── */
+  .paso-header {
+    text-align: center;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .paso-header .pnum   { font-size: clamp(15px, 3vw, 21px); font-weight: 700; color: var(--amber); text-transform: uppercase; letter-spacing: .5px; }
+  .paso-header .ptitle { font-size: clamp(15px, 3vw, 21px); font-weight: 700; color: var(--cream); text-transform: uppercase; letter-spacing: .5px; }
+  .paso-header .psub   { display: block; margin-top: 5px; font-size: 13px; color: rgba(245,242,238,.5); font-style: italic; }
+
+  /* ── VIDEO PLACEHOLDER ── */
+  .video-wrap {
+    margin: 22px auto 0;
+    max-width: 640px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    animation: glowPulse 3.2s ease-in-out infinite;
+    border: 1.5px solid rgba(232,160,48,.3);
+  }
+  .video-aspect {
+    position: relative;
+    padding-top: 56.25%;
+    background: linear-gradient(135deg, #1A1A1E 0%, #222226 50%, #1C1C20 100%);
+  }
+  .video-bg-text {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 10vw, 90px);
+    font-weight: 700;
+    color: rgba(232,160,48,.04);
+    letter-spacing: 6px;
+    user-select: none; pointer-events: none;
+  }
+  .play-btn {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 72px; height: 72px;
+    background: var(--amber);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    animation: playPulse 2s ease-in-out infinite;
+    z-index: 2;
+  }
+  .play-btn svg { margin-left: 5px; }
+  .video-meta {
+    position: absolute; bottom: 14px; left: 0; right: 0;
+    text-align: center; font-size: 11px; font-weight: 500;
+    letter-spacing: 1px; color: rgba(245,242,238,.4); z-index: 2;
+  }
+
+  /* ── BULLETS ── */
+  .bullets-list {
+    margin: 30px auto 0;
+    max-width: 640px;
+    list-style: none;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .bullets-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 15.5px; color: rgba(245,242,238,.88); line-height: 1.55;
+  }
+  .bullets-list li .n {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    background: var(--amber); color: #1A1000;
+    font-weight: 700; font-size: 13.5px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .bullets-list li a {
+    color: var(--amber-lt);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ── PASO 2 BANNER ── */
+  .paso2-banner {
+    margin-top: 40px;
+    background: var(--amber);
+    padding: 22px 28px;
+    text-align: center;
+    position: relative; z-index: 1;
+  }
+  .p2-top {
+    font-size: clamp(14px, 2.5vw, 18px);
+    font-weight: 700;
+    color: #1A1000;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    text-decoration: underline;
+  }
+  .p2-instruction {
+    margin-top: 6px;
+    font-size: clamp(15px, 3vw, 22px);
+    font-weight: 700;
+    color: #1A1000;
+    line-height: 1.3;
+  }
+  .p2-instruction .hl {
+    text-decoration: underline;
+    font-style: italic;
+  }
+
+  /* ── CALENDAR MOCKUP ── */
+  .cal-wrapper {
+    position: relative;
+    margin: 28px auto 0;
+    max-width: 590px;
+  }
+  .calendar-mockup {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .cal-email-bar {
+    background: #f8f9fa;
+    padding: 10px 18px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .cal-email-bar .subj {
+    font-size: 12px; font-weight: 600; color: #222; line-height: 1.4;
+  }
+  .cal-email-bar .meta {
+    font-size: 10.5px; color: #888; margin-top: 2px;
+  }
+  .cal-body { padding: 16px 18px; }
+  .cal-body .cal-desc {
+    font-size: 12px; color: #555; line-height: 1.55; margin-bottom: 14px;
+  }
+  .btn-add {
+    padding: 8px 18px;
+    background: #1a73e8; color: #fff;
+    font-size: 12.5px; font-weight: 600;
+    border-radius: 4px; border: none;
+    font-family: 'DM Sans', sans-serif;
+    cursor: default; letter-spacing: .3px;
+  }
+  .btn-spam {
+    margin-left: 8px;
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid #ccc; color: #666;
+    border-radius: 4px; font-size: 12px;
+    cursor: default; font-family: 'DM Sans', sans-serif;
+  }
+  .cal-event-card {
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: #f0f4ff;
+    border-radius: 8px;
+    border-left: 4px solid #1a73e8;
+  }
+  .ev-row { display: flex; align-items: flex-start; gap: 12px; }
+  .cal-date-box {
+    background: #1a73e8; color: #fff;
+    border-radius: 7px; padding: 5px 12px;
+    text-align: center; flex-shrink: 0;
+  }
+  .cal-date-box .month { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .cal-date-box .day   { font-size: 24px; font-weight: 700; line-height: 1; }
+  .ev-info { font-size: 12px; color: #333; line-height: 1.55; }
+  .ev-info .ev-title { font-weight: 700; font-size: 13px; color: #1a1a1a; }
+  .ev-info .ev-detail { color: #666; }
+  .cal-rsvp {
+    margin-top: 14px; padding-top: 12px;
+    border-top: 1px solid #dde3ee;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: #555;
+  }
+  .btn-si {
+    padding: 6px 18px;
+    background: #1a73e8; color: #fff;
+    font-weight: 700; font-size: 12px;
+    border-radius: 4px; border: none;
+    font-family: 'DM Sans', sans-serif;
+    cursor: default;
+    box-shadow: 0 2px 8px rgba(26,115,232,.35);
+  }
+  .btn-maybe, .btn-no {
+    padding: 6px 14px;
+    background: transparent; border: 1px solid #ccc;
+    color: #555; border-radius: 4px; font-size: 12px;
+    cursor: default; font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ARROWS on top of mockup */
+  .arrow-ann {
+    position: absolute;
+    pointer-events: none;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .ann-tag {
+    background: #C8102E;
+    color: #fff;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    letter-spacing: .3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.3);
+  }
+  .ann-arrow-svg {
+    animation: arrowBounce 1.6s ease-in-out infinite;
+  }
+
+  .cal-caption {
+    margin-top: 14px;
+    font-size: 12.5px;
+    font-style: italic;
+    color: rgba(245,242,238,.4);
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* ── PASO 3: CASOS ── */
+  .paso3-section { padding: 48px 0 0; position: relative; z-index: 1; }
+  .paso3-header { text-align: center; margin-bottom: 28px; line-height: 1.3; }
+  .paso3-header .pnum   { font-size: clamp(15px,2.5vw,20px); font-weight:700; color:var(--amber); text-transform:uppercase; letter-spacing:.5px; }
+  .paso3-header .ptitle { font-size: clamp(15px,2.5vw,20px); font-weight:700; color:var(--cream); text-transform:uppercase; letter-spacing:.5px; }
+  .paso3-header .hl     { color: var(--amber); text-decoration: underline; }
+
+  .cases-top    { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .cases-bottom { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+
+  .case-card {
+    background: #1A1A1E;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.05);
+  }
+  .card-inner {
+    position: relative;
+    padding: 22px 18px 22px;
+    min-height: 160px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    background: linear-gradient(135deg, #1E1E22 0%, #252528 100%);
+    overflow: hidden;
+  }
+  .card-inner.big { min-height: 200px; }
+
+  /* Avatar placeholder (right side) */
+  .av-area {
+    position: absolute;
+    right: 0; top: 0; bottom: 0; width: 42%;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .av-circle {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #333339, #28282D);
+    border: 2px solid rgba(255,255,255,.07);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 700;
+    color: rgba(255,255,255,.12);
+    flex-shrink: 0;
+  }
+  .av-circle.big { width: 100px; height: 100px; font-size: 32px; }
+
+  .c-name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(14px, 2.5vw, 20px);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    line-height: 1.1;
+    position: relative; z-index: 2;
+  }
+  .c-tag {
+    display: inline-block;
+    margin-top: 7px;
+    padding: 4px 10px;
+    background: var(--amber);
+    color: #1A1000;
+    font-weight: 700;
+    font-size: clamp(11px, 1.8vw, 14px);
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    position: relative; z-index: 2;
+    line-height: 1.2;
+  }
+  .c-tag.lg { font-size: clamp(13px, 2.2vw, 17px); padding: 5px 12px; }
+  .c-desc {
+    margin-top: 7px;
+    font-size: 11px;
+    color: rgba(255,255,255,.55);
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    line-height: 1.35;
+    position: relative; z-index: 2;
+  }
+  .c-brand {
+    margin-top: 12px;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.25);
+    position: relative; z-index: 2;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .c-brand::before { content: ''; width: 18px; height: 1px; background: rgba(255,255,255,.18); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 20px 40px;
+    text-align: center;
+    border-top: 1px solid rgba(245,242,238,.07);
+    margin-top: 52px;
+    position: relative; z-index: 1;
+  }
+  .footer-meta {
+    font-style: italic; font-size: 11.5px;
+    color: rgba(245,242,238,.28);
+    max-width: 600px; margin: 0 auto 12px;
+    line-height: 1.65;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 8px; }
+  .footer-links a { font-size: 11px; color: rgba(245,242,238,.3); text-decoration: underline; text-underline-offset: 2px; transition: color .2s; }
+  .footer-links a:hover { color: var(--amber); }
+  .footer-copy { font-size: 10.5px; color: rgba(245,242,238,.2); margin-top: 4px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 620px) {
+    .cases-top    { grid-template-columns: 1fr; }
+    .cases-bottom { grid-template-columns: 1fr 1fr; }
+    .arrow-ann    { display: none; }
+  }
+  @media (max-width: 400px) {
+    .cases-bottom { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BRAND BAR -->
+<div class="brand-bar fade" style="animation-delay:.04s">
+  <span class="brand-name">Carmen Victoria Pardo</span>
+  <img src="BAP_logo_blanco.png" alt="Business Activation Program" style="display:block; width:200px; max-width:75%; margin:8px auto 0; filter:drop-shadow(0 2px 10px rgba(232,160,48,.2));" />
+</div>
+
+<!-- URGENCY BANNER -->
+<div class="urgency-banner">
+  <p class="urgency-main">
+    TU LLAMADA HA SIDO AGENDADA, pero es necesario que sigas<br>
+    los pasos debajo para <span>confirmarla y prepararte.</span>
+  </p>
+</div>
+
+<div class="wrap">
+
+  <!-- IMPORTANT NOTE -->
+  <div class="important-note fade" style="animation-delay:.14s; margin-top:18px;">
+    <p class="imp-line"><strong>IMPORTANTE:</strong> Te estaremos contactando para confirmar tu sesión.</p>
+    <p class="cancel-line">Si no contestas, tendremos que <em>cancelar tu sesión</em> y darle el cupo a otra persona en la lista.</p>
+  </div>
+
+  <!-- ══ PASO 1: VIDEO ══ -->
+  <div style="padding-top:40px; position:relative; z-index:1;" class="fade" style="animation-delay:.2s">
+    <div class="paso-header">
+      <span class="pnum">PASO #1:&nbsp;</span><span class="ptitle">MIRA EL VIDEO DEBAJO</span>
+      <span class="psub">(Puedes poner todos los videos en x2 de velocidad)</span>
+    </div>
+
+    <!-- VIDEO PLACEHOLDER con glow ámbar -->
+    <div class="video-wrap">
+      <div class="video-aspect">
+        <div class="video-bg-text">CVP</div>
+        <div class="play-btn" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="#1A1000" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="6,3 20,12 6,21"/>
+          </svg>
+        </div>
+        <div class="video-meta">Carmen Victoria Pardo · 2 Emmy Awards · 30 años en medios</div>
+      </div>
+    </div>
+
+    <!-- BULLETS NUMERADOS -->
+    <ul class="bullets-list fade" style="animation-delay:.28s">
+      <li>
+        <span class="n">1</span>
+        <span>Mantente <a href="#">al tanto de tu WhatsApp</a>/Teléfono (te contactaremos para confirmar tu llamada).</span>
+      </li>
+      <li>
+        <span class="n">2</span>
+        <span>Asegúrate de que <a href="#">eres el tipo de persona</a> que podemos ayudar.</span>
+      </li>
+      <li>
+        <span class="n">3</span>
+        <span>Entiende el <a href="#">costo de no saber.</a></span>
+      </li>
+      <li>
+        <span class="n">4</span>
+        <span>Mira los <a href="#">casos de éxito</a> para generar certeza en tu mente de que esto va a funcionar.</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+</div><!-- /wrap -->
+
+<!-- ══ PASO 2 BANNER ══ -->
+<div class="paso2-banner fade" style="animation-delay:.36s">
+  <p class="p2-top">PASO #2: Confirma tu llamada</p>
+  <p class="p2-instruction">
+    Acepta la invitación que enviamos a tu correo. Dale clic en
+    <span class="hl">"Añadir al calendario"</span> y en <span class="hl">"Sí"</span> para aceptar la invitación
+  </p>
+</div>
+
+<div class="wrap">
+
+  <!-- CALENDAR MOCKUP -->
+  <div class="cal-wrapper fade" style="animation-delay:.44s">
+
+    <div class="calendar-mockup">
+
+      <!-- EMAIL HEADER -->
+      <div class="cal-email-bar">
+        <div class="subj">Invitación actualizada de un remitente desconocido: Sesión de Claridad con TU NOMBRE — próximamente (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9fcbcadcd0cdcddad0dff8f2fef6f3b1fcf0f2">[email&#160;protected]</a>)</div>
+        <div class="meta">admisiones &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="90f1f4fdf9e3f9fffef5e3d0f3f1e2fdf5fee6f9f3e4ffe2f9f1e0f1e2f4ffbef3fffd">[email&#160;protected]</a>&gt; &nbsp;·&nbsp; hace 2 minutos</div>
+      </div>
+
+      <!-- BODY -->
+      <div class="cal-body">
+        <p class="cal-desc">
+          Este evento aún no está en tu calendario.<br>
+          No has interactuado nunca con el remitente. ¿Quieres agregar este evento automáticamente a tu calendario, así como las invitaciones que te envíe en el futuro?
+        </p>
+
+        <button class="btn-add">Añadir al calendario</button>
+        <button class="btn-spam">Marcar como spam</button>
+
+        <!-- EVENT CARD -->
+        <div class="cal-event-card">
+          <div class="ev-row">
+            <div class="cal-date-box">
+              <div class="month">PRX</div>
+              <div class="day">—</div>
+            </div>
+            <div class="ev-info">
+              <div class="ev-title">Sesión de Claridad con Carmen Victoria Pardo</div>
+              <div class="ev-detail">Meet en Google Meet · 45 minutos</div>
+              <div class="ev-detail">5:00pm – 5:45pm (COT) · Tu zona horaria</div>
+              <div class="ev-detail">Participante: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b0d1d4ddd9c3d9dfded5c3f0d3d1c2ddd5dec6d9d3c4dfc2d9d1c0d1c2d4df9ed3dfdd">[email&#160;protected]</a></div>
+            </div>
+          </div>
+
+          <!-- RSVP -->
+          <div class="cal-rsvp">
+            <span>¿Asistirás?</span>
+            <button class="btn-si">Sí</button>
+            <button class="btn-maybe">Quizás</button>
+            <button class="btn-no">No</button>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /calendar-mockup -->
+
+    <!-- FLECHA 1: "Añadir al calendario" -->
+    <div class="arrow-ann" style="top:88px; right:-10px; align-items:flex-end;">
+      <span class="ann-tag">"Añadir al calendario" →</span>
+      <svg class="ann-arrow-svg" width="60" height="38" viewBox="0 0 60 38" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:30px;">
+        <path d="M50 5 Q30 5 10 30" stroke="#C8102E" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+        <polygon points="5,24 14,34 16,22" fill="#C8102E"/>
+      </svg>
+    </div>
+
+    <!-- FLECHA 2: "Sí" -->
+    <div class="arrow-ann" style="bottom:26px; right:-10px; align-items:flex-end;">
+      <span class="ann-tag">Dale clic en "Sí" →</span>
+      <svg class="ann-arrow-svg" width="60" height="38" viewBox="0 0 60 38" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:40px;">
+        <path d="M50 5 Q30 5 10 30" stroke="#C8102E" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+        <polygon points="5,24 14,34 16,22" fill="#C8102E"/>
+      </svg>
+    </div>
+
+  </div><!-- /cal-wrapper -->
+
+  <p class="cal-caption fade" style="animation-delay:.5s; margin-bottom:4px;">
+    Así se ve el email de invitación — acepta el evento y haz clic en "Sí" para confirmar tu asistencia.
+  </p>
+
+  <div class="divider"></div>
+
+  <!-- ══ PASO 3: CASOS DE ÉXITO ══ -->
+  <div class="paso3-section fade" style="animation-delay:.58s">
+
+    <div class="paso3-header">
+      <span class="pnum">PASO #3:&nbsp;</span>
+      <span class="ptitle">MIRA ALGUNOS DE <span class="hl">NUESTROS CASOS DE ÉXITO.</span></span>
+    </div>
+
+    <!-- TOP 2 -->
+    <div class="cases-top">
+      <div class="case-card">
+        <div class="card-inner big">
+          <div class="av-area"><div class="av-circle big">NS</div></div>
+          <div class="c-name">Nataly Sánchez</div>
+          <div class="c-tag">AUMENTÓ 4X SU FACTURACIÓN</div>
+          <div class="c-desc">Luego de lanzar su primer<br>webinar en menos de 3 semanas</div>
+          <div class="c-brand">The Business Activation Program</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="card-inner big">
+          <div class="av-area"><div class="av-circle big">AL</div></div>
+          <div class="c-name">Andrew L.</div>
+          <div class="c-tag lg">$250,000 USD</div>
+          <div class="c-desc">Con su nueva oferta<br>para audiencia específica</div>
+          <div class="c-brand">The Business Activation Program</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM 3 -->
+    <div class="cases-bottom">
+      <div class="case-card">
+        <div class="card-inner">
+          <div class="av-area"><div class="av-circle">JC</div></div>
+          <div class="c-name">Juan Cano</div>
+          <div class="c-tag">$94,000 USD/MES</div>
+          <div class="c-desc">Con nuestros sistemas</div>
+          <div class="c-brand">The Business Activation Program</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="card-inner">
+          <div class="av-area"><div class="av-circle">RC</div></div>
+          <div class="c-name">Ricardo Castillo</div>
+          <div class="c-tag">$14,000 USD</div>
+          <div class="c-desc">En su primer evento</div>
+          <div class="c-brand">The Business Activation Program</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="card-inner">
+          <div class="av-area"><div class="av-circle">CM</div></div>
+          <div class="c-name">Claudy Morales</div>
+          <div class="c-tag">$5,000 USD</div>
+          <div class="c-desc">En su primer webinar</div>
+          <div class="c-brand">The Business Activation Program</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /paso3 -->
+
+  <div class="divider"></div>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-meta">
+    This site is not a part of the Facebook website or
